@@ -20,8 +20,6 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const { isAuthenticated } = useAuthStore();
-
   useEffect(() => {
     if (error) {
       console.error(error);
@@ -48,33 +46,15 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const { isAuthenticated } = useAuthStore();
-  
+
   return (
     <Stack>
-      {isAuthenticated ? (
-        <>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen 
-            name="disease/[id]" 
-            options={{ 
-              title: "Disease Details",
-              headerBackTitle: "Back",
-            }} 
-          />
-          <Stack.Screen 
-            name="scan-result/[id]" 
-            options={{ 
-              title: "Scan Result",
-              headerBackTitle: "Back",
-            }} 
-          />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="login" options={{ headerShown: false }} />
-          <Stack.Screen name="register" options={{ headerShown: false }} />
-        </>
-      )}
+      {/* Mặc định hiển thị tất cả các màn hình, điều hướng xử lý bên trong các screen */}
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="disease/[id]" options={{ title: "Disease Details", headerBackTitle: "Back" }} />
+      <Stack.Screen name="scan-result/[id]" options={{ title: "Scan Result", headerBackTitle: "Back" }} />
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="register" options={{ headerShown: false }} />
     </Stack>
   );
 }

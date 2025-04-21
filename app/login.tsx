@@ -33,13 +33,13 @@ export default function LoginScreen() {
   
   const validateEmail = () => {
     if (!email) {
-      setEmailError('Email is required');
+      setEmailError('Bạn cần nhập email');
       return false;
     }
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setEmailError('Please enter a valid email');
+      setEmailError('Email không hợp lệ');
       return false;
     }
     
@@ -49,12 +49,12 @@ export default function LoginScreen() {
   
   const validatePassword = () => {
     if (!password) {
-      setPasswordError('Password is required');
+      setPasswordError('Bạn cần nhập mật khẩu ');
       return false;
     }
     
     if (password.length < 6) {
-      setPasswordError('Password must be at least 6 characters');
+      setPasswordError('Mật khẩu cần phải có ít nhất 6 kí tự');
       return false;
     }
     
@@ -73,8 +73,8 @@ export default function LoginScreen() {
   
   // For demo purposes, you can use this to pre-fill the form
   const fillDemoCredentials = () => {
-    setEmail('demo@example.com');
-    setPassword('password123');
+    setEmail('NNT@gmail.com');
+    setPassword('30042003');
   };
   
   return (
@@ -94,20 +94,20 @@ export default function LoginScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <View style={styles.logoContainer}>
+            {/* <View style={styles.logoContainer}>
               <Image 
                 source={{ uri: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=500&auto=format&fit=crop' }} 
                 style={styles.logo}
               />
-            </View>
-            <Text style={styles.title}>SkinCheck</Text>
-            <Text style={styles.subtitle}>
+            </View> */}
+            <Text style={styles.title}>SkinVision</Text>
+            {/* <Text style={styles.subtitle}>
               Your personal skin disease recognition assistant
-            </Text>
+            </Text> */}
           </View>
           
           <View style={styles.formContainer}>
-            <Text style={styles.formTitle}>Welcome Back</Text>
+            <Text style={styles.formTitle}>Chào mừng bạn!</Text>
             
             {error && (
               <View style={styles.errorContainer}>
@@ -120,7 +120,7 @@ export default function LoginScreen() {
               label="Email"
               value={email}
               onChangeText={setEmail}
-              placeholder="Enter your email"
+              placeholder="Nhập email"
               keyboardType="email-address"
               autoCapitalize="none"
               error={emailError}
@@ -129,10 +129,10 @@ export default function LoginScreen() {
             />
             
             <Input
-              label="Password"
+              label="Mật Khẩu"
               value={password}
               onChangeText={setPassword}
-              placeholder="Enter your password"
+              placeholder="Nhập mật khẩu"
               secureTextEntry
               error={passwordError}
               onBlur={validatePassword}
@@ -140,11 +140,11 @@ export default function LoginScreen() {
             />
             
             <TouchableOpacity style={styles.forgotPassword}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              <Text style={styles.forgotPasswordText}>Quên mật khẩu?</Text>
             </TouchableOpacity>
             
             <Button
-              title="Sign In"
+              title="Đăng nhập"
               onPress={handleLogin}
               loading={isLoading}
               style={styles.loginButton}
@@ -155,12 +155,12 @@ export default function LoginScreen() {
               style={styles.demoButton}
               onPress={fillDemoCredentials}
             >
-              <Text style={styles.demoButtonText}>Use demo credentials</Text>
+              <Text style={styles.demoButtonText}>Sử dụng demo</Text>
             </TouchableOpacity>
             
             <View style={styles.divider}>
               <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OR</Text>
+              <Text style={styles.dividerText}>Hoặc</Text>
               <View style={styles.dividerLine} />
             </View>
             
@@ -186,10 +186,10 @@ export default function LoginScreen() {
             </View>
             
             <View style={styles.registerContainer}>
-              <Text style={styles.registerText}>Don't have an account?</Text>
+              <Text style={styles.registerText}>Chưa có tài khoản?</Text>
               <Link href="/register" asChild>
                 <TouchableOpacity>
-                  <Text style={styles.registerLink}>Sign Up</Text>
+                  <Text style={styles.registerLink}>Đăng kí</Text>
                 </TouchableOpacity>
               </Link>
             </View>

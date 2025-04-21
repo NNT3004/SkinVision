@@ -8,9 +8,9 @@ import { router } from 'expo-router';
 const mockUsers = [
   {
     id: '1',
-    email: 'demo@example.com',
-    password: 'password123',
-    name: 'Demo User',
+    email: 'NNT@gmail.com',
+    password: '30042003',
+    name: 'NNT',
   },
 ];
 
@@ -35,7 +35,7 @@ export const useAuthStore = create<AuthState>()(
           );
           
           if (!user) {
-            throw new Error('Invalid email or password');
+            throw new Error('Email hoặc mật khẩu sai. Vui lòng nhặp lại');
           }
           
           // Remove password from user object before storing

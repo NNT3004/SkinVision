@@ -37,12 +37,12 @@ export default function RegisterScreen() {
   
   const validateName = () => {
     if (!name) {
-      setNameError('Name is required');
+      setNameError('Bạn cần nhập tên');
       return false;
     }
     
     if (name.length < 2) {
-      setNameError('Name must be at least 2 characters');
+      setNameError('Tên cần phải có ít nhất 2 kí tự');
       return false;
     }
     
@@ -52,7 +52,7 @@ export default function RegisterScreen() {
   
   const validateEmail = () => {
     if (!email) {
-      setEmailError('Email is required');
+      setEmailError('Bạn cần nhập emai');
       return false;
     }
     
@@ -68,7 +68,7 @@ export default function RegisterScreen() {
   
   const validatePassword = () => {
     if (!password) {
-      setPasswordError('Password is required');
+      setPasswordError('Bạn cần nhập mật khẩu');
       return false;
     }
     
@@ -83,12 +83,12 @@ export default function RegisterScreen() {
   
   const validateConfirmPassword = () => {
     if (!confirmPassword) {
-      setConfirmPasswordError('Please confirm your password');
+      setConfirmPasswordError('Bạn cần nhập lại mật khẩu');
       return false;
     }
     
     if (password !== confirmPassword) {
-      setConfirmPasswordError('Passwords do not match');
+      setConfirmPasswordError('Mật khẩu không trùng');
       return false;
     }
     
@@ -130,9 +130,9 @@ export default function RegisterScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.title}>Tạo tài khoản</Text>
             <Text style={styles.subtitle}>
-              Join SkinCheck to start your skin health journey
+            Tham gia SkinVision để bắt đầu hành trình chăm sóc sức khỏe làn da của bạn
             </Text>
           </View>
           
@@ -145,7 +145,7 @@ export default function RegisterScreen() {
             )}
             
             <Input
-              label="Full Name"
+              label="Tên"
               value={name}
               onChangeText={setName}
               placeholder="Enter your full name"
@@ -159,7 +159,7 @@ export default function RegisterScreen() {
               label="Email"
               value={email}
               onChangeText={setEmail}
-              placeholder="Enter your email"
+              placeholder="Nhập email"
               keyboardType="email-address"
               autoCapitalize="none"
               error={emailError}
@@ -168,10 +168,10 @@ export default function RegisterScreen() {
             />
             
             <Input
-              label="Password"
+              label="Mật khẩu"
               value={password}
               onChangeText={setPassword}
-              placeholder="Create a password"
+              placeholder="Nhập mật khẩu"
               secureTextEntry
               error={passwordError}
               onBlur={validatePassword}
@@ -179,26 +179,26 @@ export default function RegisterScreen() {
             />
             
             <Input
-              label="Confirm Password"
+              label="Nhập lại mật khẩu"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              placeholder="Confirm your password"
+              placeholder="Nhập lại mật khẩu"
               secureTextEntry
               error={confirmPasswordError}
               onBlur={validateConfirmPassword}
               icon={<Lock size={20} color={colors.darkGray} />}
             />
             
-            <View style={styles.termsContainer}>
+            {/* <View style={styles.termsContainer}>
               <Text style={styles.termsText}>
-                By signing up, you agree to our{" "}
+                Bằng cách đăng ký, bạn đồng ý với {" "}
                 <Text style={styles.termsLink}>Terms of Service</Text> and{" "}
                 <Text style={styles.termsLink}>Privacy Policy</Text>
               </Text>
-            </View>
+            </View> */}
             
             <Button
-              title="Create Account"
+              title="Tạo tài khoản"
               onPress={handleRegister}
               loading={isLoading}
               style={styles.registerButton}
@@ -207,7 +207,7 @@ export default function RegisterScreen() {
             
             <View style={styles.divider}>
               <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OR</Text>
+              <Text style={styles.dividerText}>hoặc</Text>
               <View style={styles.dividerLine} />
             </View>
             
@@ -233,10 +233,10 @@ export default function RegisterScreen() {
             </View>
             
             <View style={styles.loginContainer}>
-              <Text style={styles.loginText}>Already have an account?</Text>
+              <Text style={styles.loginText}>Đã có tài khoản ?</Text>
               <Link href="/login" asChild>
                 <TouchableOpacity>
-                  <Text style={styles.loginLink}>Sign In</Text>
+                  <Text style={styles.loginLink}>Đăng nhập</Text>
                 </TouchableOpacity>
               </Link>
             </View>

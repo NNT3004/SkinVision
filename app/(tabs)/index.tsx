@@ -202,7 +202,7 @@ export default function HomeScreen() {
             <Text style={styles.sectionTitle}>Common Skin Conditions</Text>
             <TouchableOpacity 
               style={styles.viewAllButton}
-              onPress={() => router.push('/diseases')}
+              onPress={() => router.push('/disease')}
             >
               <Text style={styles.viewAllText}>View all</Text>
               <ArrowRight size={16} color={colors.primary} />
