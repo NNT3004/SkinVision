@@ -58,7 +58,7 @@ export default function RegisterScreen() {
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setEmailError('Please enter a valid email');
+      setEmailError('Email không hợp lệ');
       return false;
     }
     
@@ -73,7 +73,7 @@ export default function RegisterScreen() {
     }
     
     if (password.length < 6) {
-      setPasswordError('Password must be at least 6 characters');
+      setPasswordError('Mật khẩu cần phải có ít nhất 6 kí tự');
       return false;
     }
     
@@ -148,7 +148,7 @@ export default function RegisterScreen() {
               label="Tên"
               value={name}
               onChangeText={setName}
-              placeholder="Enter your full name"
+              placeholder="Vui lòng nhập tên"
               autoCapitalize="words"
               error={nameError}
               onBlur={validateName}
@@ -189,13 +189,13 @@ export default function RegisterScreen() {
               icon={<Lock size={20} color={colors.darkGray} />}
             />
             
-            {/* <View style={styles.termsContainer}>
-              <Text style={styles.termsText}>
+            <View style={styles.termsContainer}>
+              {/* <Text style={styles.termsText}>
                 Bằng cách đăng ký, bạn đồng ý với {" "}
                 <Text style={styles.termsLink}>Terms of Service</Text> and{" "}
                 <Text style={styles.termsLink}>Privacy Policy</Text>
-              </Text>
-            </View> */}
+              </Text> */}
+            </View>
             
             <Button
               title="Tạo tài khoản"
@@ -233,7 +233,7 @@ export default function RegisterScreen() {
             </View>
             
             <View style={styles.loginContainer}>
-              <Text style={styles.loginText}>Đã có tài khoản ?</Text>
+              <Text style={styles.loginText}>Đã có tài khoản?</Text>
               <Link href="/login" asChild>
                 <TouchableOpacity>
                   <Text style={styles.loginLink}>Đăng nhập</Text>

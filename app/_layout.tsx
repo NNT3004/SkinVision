@@ -8,11 +8,9 @@ import { ErrorBoundary } from "./error-boundary";
 import { useAuthStore } from "@/store/auth-store";
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "login",
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

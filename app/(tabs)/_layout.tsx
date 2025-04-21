@@ -1,3 +1,4 @@
+// This is  bottom tab navigation với 4 màn hình
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { View, StyleSheet, Platform } from 'react-native';
@@ -46,7 +47,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Trang chủ",
           tabBarIcon: ({ color, size }) => (
             <View style={styles.iconContainer}>
               <Home size={size-2} color={color} strokeWidth={2.5} />
@@ -57,7 +58,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="disease"
         options={{
-          title: "Diseases",
+          title: "Các loại bệnh",
           tabBarIcon: ({ color, size }) => (
             <View style={styles.iconContainer}>
               <List size={size-2} color={color} strokeWidth={2.5} />
@@ -68,7 +69,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="history"
         options={{
-          title: "History",
+          title: "Lịch sử",
           tabBarIcon: ({ color, size }) => (
             <View style={styles.iconContainer}>
               <History size={size-2} color={color} strokeWidth={2.5} />
@@ -79,7 +80,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "Cá nhân",
           tabBarIcon: ({ color, size }) => (
             <View style={styles.iconContainer}>
               <User size={size-2} color={color} strokeWidth={2.5} />
