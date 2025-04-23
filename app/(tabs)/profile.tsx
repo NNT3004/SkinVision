@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
   Image,
   ScrollView,
   Alert,
@@ -18,11 +18,11 @@ import { useAuthStore } from '@/store/auth-store';
 import { useHistoryStore } from '@/store/history-store';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
-import { 
-  User, 
-  Mail, 
-  Camera, 
-  LogOut, 
+import {
+  User,
+  Mail,
+  Camera,
+  LogOut,
   ChevronRight,
   Shield,
   Bell,
@@ -37,7 +37,7 @@ import {
 export default function ProfileScreen() {
   const { user, logout, updateProfile, isLoading } = useAuthStore();
   const { scans } = useHistoryStore();
-  
+
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [profileForm, setProfileForm] = useState({
     name: user?.name || '',
@@ -49,12 +49,12 @@ export default function ProfileScreen() {
     name: '',
     phone: '',
   });
-  
+
   // Filter scans for the current user
-  const userScans = user 
+  const userScans = user
     ? scans.filter((scan: { userId: any; }) => scan.userId === user.id)
     : [];
-  
+
   // Pick an image from the gallery
   const pickImage = async () => {
     try {
@@ -64,16 +64,16 @@ export default function ProfileScreen() {
         aspect: [1, 1],
         quality: 0.8,
       });
-      
+
       if (!result.canceled) {
         updateProfile({ profileImage: result.assets[0].uri });
       }
     } catch (error) {
-      console.error('Error picking image:', error);
-      Alert.alert('Error', 'Failed to select image. Please try again.');
+      console.error('Lỗi khi chọn ảnh:', error);
+      Alert.alert('Lỗi', 'Không thể chọn ảnh. Vui lòng thử lại.');
     }
   };
-  
+
   // Validate form fields
   const validateForm = () => {
     let isValid = true;
@@ -81,56 +81,56 @@ export default function ProfileScreen() {
       name: '',
       phone: '',
     };
-    
+
     if (profileForm.name.trim().length < 2) {
-      errors.name = 'Name must be at least 2 characters long';
+      errors.name = 'Tên phải có ít nhất 2 ký tự';
       isValid = false;
     }
-    
+
     if (profileForm.phone && !/^\+?[0-9]{10,15}$/.test(profileForm.phone)) {
-      errors.phone = 'Please enter a valid phone number';
+      errors.phone = 'Vui lòng nhập số điện thoại hợp lệ';
       isValid = false;
     }
-    
+
     setFormErrors(errors);
     return isValid;
   };
-  
+
   // Save profile changes
   const saveChanges = async () => {
     if (!validateForm()) return;
-    
+
     try {
       await updateProfile({
         name: profileForm.name,
         phone: profileForm.phone,
         birthdate: profileForm.birthdate,
       });
-      
+
       setIsEditModalVisible(false);
-      Alert.alert('Success', 'Your profile has been updated successfully.');
+      Alert.alert('Thành công', 'Hồ sơ của bạn đã được cập nhật thành công.');
     } catch (error) {
-      Alert.alert('Error', 'Failed to update profile. Please try again.');
+      Alert.alert('Lỗi', 'Cập nhật hồ sơ không thành công. Vui lòng thử lại.');
     }
   };
-  
+
   // Handle logout
   const handleLogout = () => {
     Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
+      'Đăng xuất',
+      'Bạn có chắc chắn muốn đăng xuất không?',
       [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Logout', style: 'destructive', onPress: logout }
+        { text: 'Hủy', style: 'cancel' },
+        { text: 'Đăng xuất', style: 'destructive', onPress: logout }
       ]
     );
   };
-  
+
   // Render a menu item
-  const MenuItem = ({ icon, title, onPress }: { 
-    icon: React.ReactNode, 
-    title: string, 
-    onPress: () => void 
+  const MenuItem = ({ icon, title, onPress }: {
+    icon: React.ReactNode,
+    title: string,
+    onPress: () => void
   }) => (
     <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <View style={styles.menuItemLeft}>
@@ -140,75 +140,75 @@ export default function ProfileScreen() {
       <ChevronRight size={20} color={colors.darkGray} />
     </TouchableOpacity>
   );
-  
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.title}>Profile</Text>
+          <Text style={styles.title}>Hồ sơ</Text>
           <Text style={styles.subtitle}>
-            Manage your account and preferences
+            Quản lý tài khoản và tùy chọn của bạn
           </Text>
         </View>
-        
+
         <View style={styles.profileSection}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.profileImageContainer}
             onPress={pickImage}
           >
-            <Image 
-              source={{ 
+            <Image
+              source={{
                 uri: user?.profileImage || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
-              }} 
+              }}
               style={styles.profileImage}
             />
             <View style={styles.cameraIcon}>
               <Camera size={16} color="#FFFFFF" />
             </View>
           </TouchableOpacity>
-          
+
           <View style={styles.profileInfo}>
             <Text style={styles.profileName}>{user?.name}</Text>
-            
+
             <View style={styles.emailContainer}>
               <Mail size={16} color={colors.darkGray} />
               <Text style={styles.profileEmail}>{user?.email}</Text>
             </View>
-            
+
             {user?.phone && (
               <View style={styles.emailContainer}>
                 <Phone size={16} color={colors.darkGray} />
                 <Text style={styles.profileEmail}>{user.phone}</Text>
               </View>
             )}
-            
+
             {user?.birthdate && (
               <View style={styles.emailContainer}>
                 <Calendar size={16} color={colors.darkGray} />
                 <Text style={styles.profileEmail}>{user.birthdate}</Text>
               </View>
             )}
-            
+
             <View style={styles.statsContainer}>
               <View style={styles.statItem}>
                 <Text style={styles.statValue}>{userScans.length}</Text>
-                <Text style={styles.statLabel}>Scans</Text>
+                <Text style={styles.statLabel}>Lượt quét</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
                 <Text style={styles.statValue}>
-                  {userScans.length > 0 ? 
-                    new Date(userScans[0].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 
+                  {userScans.length > 0 ?
+                    new Date(userScans[0].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) :
                     '-'
                   }
                 </Text>
-                <Text style={styles.statLabel}>Last Scan</Text>
+                <Text style={styles.statLabel}>Lần quét gần nhất</Text>
               </View>
             </View>
-            
+
             <Button
-              title="Edit Profile"
+              title="Chỉnh sửa hồ sơ"
               onPress={() => {
                 setProfileForm({
                   name: user?.name || '',
@@ -224,55 +224,58 @@ export default function ProfileScreen() {
             />
           </View>
         </View>
-        
+
         <View style={styles.menuSection}>
-          <Text style={styles.menuTitle}>Settings</Text>
-          
-          <MenuItem 
+          <Text style={styles.menuTitle}>Cài đặt</Text>
+
+          <MenuItem
             icon={<Bell size={20} color={colors.primary} />}
-            title="Notifications"
-            onPress={() => Alert.alert('Notifications', 'Notification settings would go here.')}
+            title="Thông báo"
+            onPress={() => Alert.alert('Thông báo', 'Cài đặt thông báo sẽ hiển thị ở đây.')}
           />
-          
-          <MenuItem 
+
+          <MenuItem
             icon={<Shield size={20} color={colors.primary} />}
-            title="Privacy & Security"
-            onPress={() => Alert.alert('Privacy', 'Privacy settings would go here.')}
+            title="Quyền riêng tư & Bảo mật"
+            onPress={() => Alert.alert('Quyền riêng tư', 'Cài đặt quyền riêng tư sẽ hiển thị ở đây.')}
           />
-          
-          <MenuItem 
+
+          <MenuItem
             icon={<Settings size={20} color={colors.primary} />}
-            title="App Settings"
-            onPress={() => Alert.alert('Settings', 'App settings would go here.')}
+            title="Cài đặt ứng dụng"
+            onPress={() => Alert.alert('Cài đặt', 'Cài đặt ứng dụng sẽ hiển thị ở đây.')}
           />
         </View>
-        
+
+
         <View style={styles.menuSection}>
-          <Text style={styles.menuTitle}>Support</Text>
-          
-          <MenuItem 
+          <Text style={styles.menuTitle}>Hỗ trợ</Text>
+
+          <MenuItem
             icon={<HelpCircle size={20} color={colors.primary} />}
-            title="Help & Support"
-            onPress={() => Alert.alert('Help', 'Help and support information would go here.')}
+            title="Trợ giúp & Hỗ trợ"
+            onPress={() => Alert.alert('Trợ giúp', 'Thông tin trợ giúp và hỗ trợ sẽ hiển thị ở đây.')}
           />
-          
-          <MenuItem 
+
+          <MenuItem
             icon={<FileText size={20} color={colors.primary} />}
-            title="Terms & Policies"
-            onPress={() => Alert.alert('Terms', 'Terms and policies would go here.')}
+            title="Điều khoản & Chính sách"
+            onPress={() => Alert.alert('Điều khoản', 'Điều khoản và chính sách sẽ hiển thị ở đây.')}
           />
         </View>
-        
+
+
         <Button
-          title="Logout"
+          title="Đăng xuất"
           onPress={handleLogout}
           variant="outline"
           style={styles.logoutButton}
           icon={<LogOut size={20} color={colors.error} />}
           textStyle={{ color: colors.error }}
         />
+
       </ScrollView>
-      
+
       {/* Edit Profile Modal */}
       <Modal
         visible={isEditModalVisible}
@@ -283,66 +286,67 @@ export default function ProfileScreen() {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Edit Profile</Text>
-              <TouchableOpacity 
+              <Text style={styles.modalTitle}>Chỉnh sửa hồ sơ</Text>
+              <TouchableOpacity
                 onPress={() => setIsEditModalVisible(false)}
                 style={styles.closeButton}
               >
                 <X size={24} color={colors.text} />
               </TouchableOpacity>
             </View>
-            
+
             <ScrollView style={styles.modalBody}>
               <Input
-                label="Full Name"
+                label="Họ và tên"
                 value={profileForm.name}
-                onChangeText={(text) => setProfileForm({...profileForm, name: text})}
-                placeholder="Enter your full name"
+                onChangeText={(text) => setProfileForm({ ...profileForm, name: text })}
+                placeholder="Nhập họ và tên của bạn"
                 error={formErrors.name}
                 icon={<User size={20} color={colors.darkGray} />}
               />
-              
+
               <Input
                 label="Email"
                 value={profileForm.email}
-                onChangeText={(text) => setProfileForm({...profileForm, email: text})}
-                placeholder="Enter your email"
+                onChangeText={(text) => setProfileForm({ ...profileForm, email: text })}
+                placeholder="Nhập email của bạn"
                 editable={false}
                 icon={<Mail size={20} color={colors.darkGray} />}
               />
-              
+
               <Input
-                label="Phone Number"
+                label="Số điện thoại"
                 value={profileForm.phone}
-                onChangeText={(text) => setProfileForm({...profileForm, phone: text})}
-                placeholder="Enter your phone number"
+                onChangeText={(text) => setProfileForm({ ...profileForm, phone: text })}
+                placeholder="Nhập số điện thoại của bạn"
                 keyboardType="phone-pad"
                 error={formErrors.phone}
                 icon={<Phone size={20} color={colors.darkGray} />}
               />
-              
+
               <Input
-                label="Date of Birth"
+                label="Ngày sinh"
                 value={profileForm.birthdate}
-                onChangeText={(text) => setProfileForm({...profileForm, birthdate: text})}
-                placeholder="MM/DD/YYYY"
+                onChangeText={(text) => setProfileForm({ ...profileForm, birthdate: text })}
+                placeholder="DD/MM/YYYY"
                 icon={<Calendar size={20} color={colors.darkGray} />}
               />
-              
+
               <Text style={styles.modalNote}>
-                Note: Your email cannot be changed. Please contact support if you need to update your email address.
+                Lưu ý: Email của bạn không thể thay đổi. Vui lòng liên hệ với bộ phận hỗ trợ nếu bạn cần cập nhật địa chỉ email.
               </Text>
             </ScrollView>
-            
+
+
             <View style={styles.modalFooter}>
               <Button
-                title="Cancel"
+                title="Hủy"
                 onPress={() => setIsEditModalVisible(false)}
                 variant="outline"
                 style={{ flex: 1 }}
               />
               <Button
-                title="Save Changes"
+                title="Lưu thay đổi"
                 onPress={saveChanges}
                 loading={isLoading}
                 style={{ flex: 1 }}
@@ -496,7 +500,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     borderColor: colors.error,
   },
-  
+
   // Modal styles
   modalContainer: {
     flex: 1,

@@ -37,9 +37,9 @@ export default function DiseasesScreen() {
       <StatusBar style="dark" />
       
       <View style={styles.header}>
-        <Text style={styles.title}>Skin Diseases</Text>
+        <Text style={styles.title}>Bệnh ngoài da</Text>
         <Text style={styles.subtitle}>
-          Learn about common skin conditions and their symptoms
+          Tìm hiểu về các tình trạng da phổ biến và các triệu chứng của chúng
         </Text>
       </View>
       
@@ -47,7 +47,7 @@ export default function DiseasesScreen() {
         <Search size={20} color={colors.darkGray} />
         <TextInput
           style={styles.searchInput}
-          placeholder="Search diseases, symptoms..."
+          placeholder="Tìm kiếm"
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholderTextColor={colors.darkGray}
@@ -72,7 +72,7 @@ export default function DiseasesScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>
-              No diseases found matching "{searchQuery}"
+              Không tìm thấy bệnh "{searchQuery}"
             </Text>
           </View>
         }

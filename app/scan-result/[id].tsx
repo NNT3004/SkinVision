@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
   Image,
   TouchableOpacity,
   Alert
@@ -17,8 +17,8 @@ import { diseases } from '@/constants/diseases';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { DiseaseCard } from '@/components/DiseaseCard';
-import { 
-  AlertCircle, 
+import {
+  AlertCircle,
   ArrowLeft,
   Calendar,
   Edit3,
@@ -31,17 +31,17 @@ import {
 export default function ScanResultScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { scans, updateScanNotes, deleteScan } = useHistoryStore();
-  
+
   // Find the scan by ID
   const scan = scans.find(s => s.id === id);
-  
+
   const [isEditingNotes, setIsEditingNotes] = useState(false);
   const [notes, setNotes] = useState(scan?.notes || '');
-  
+
   // Format date
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
-    
+
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -51,7 +51,7 @@ export default function ScanResultScreen() {
       minute: '2-digit',
     });
   };
-  
+
   // Save notes
   const saveNotes = () => {
     if (scan) {
@@ -59,17 +59,17 @@ export default function ScanResultScreen() {
       setIsEditingNotes(false);
     }
   };
-  
+
   // Delete scan
   const handleDelete = () => {
     Alert.alert(
-      'Delete Scan',
-      'Are you sure you want to delete this scan? This action cannot be undone.',
+      'Xóa lượt quét',
+      'Bạn có chắc chắn muốn xóa lượt quét này không? Hành động này không thể hoàn tác.',
       [
-        { text: 'Cancel', style: 'cancel' },
-        { 
-          text: 'Delete', 
-          style: 'destructive', 
+        { text: 'Hủy hành động', style: 'cancel' },
+        {
+          text: 'Xóa',
+          style: 'destructive',
           onPress: () => {
             if (scan) {
               deleteScan(scan.id);
@@ -80,16 +80,16 @@ export default function ScanResultScreen() {
       ]
     );
   };
-  
+
   // Share result
   const handleShare = () => {
     Alert.alert(
-      'Share Result',
-      'This would share your scan result with a healthcare provider or save it to your device.',
+      'Chia sẻ kết quả',
+      'Bạn có thể chia sẻ kết quả quét với nhân viên y tế hoặc lưu về thiết bị của mình.',
       [{ text: 'OK' }]
     );
   };
-  
+
   // If scan not found, show error
   if (!scan) {
     return (
@@ -98,7 +98,7 @@ export default function ScanResultScreen() {
         <View style={styles.errorContainer}>
           <AlertCircle size={40} color={colors.error} />
           <Text style={styles.errorText}>Scan result not found</Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.backButton}
             onPress={() => router.replace('/history')}
           >
@@ -109,10 +109,10 @@ export default function ScanResultScreen() {
       </SafeAreaView>
     );
   }
-  
+
   // Sort diseases by probability
   const sortedResults = [...scan.diseases].sort((a, b) => b.probability - a.probability);
-  
+
   // Get full disease info for each result
   const resultsWithInfo = sortedResults.map(result => {
     const diseaseInfo = diseases.find(d => d.id === result.id);
@@ -121,21 +121,21 @@ export default function ScanResultScreen() {
       diseaseInfo
     };
   });
-  
+
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
-      <Stack.Screen 
-        options={{ 
+      <Stack.Screen
+        options={{
           title: 'Scan Result',
           headerRight: () => (
             <View style={styles.headerButtons}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.headerButton}
                 onPress={handleShare}
               >
                 <Share2 size={22} color={colors.primary} />
               </TouchableOpacity>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.headerButton}
                 onPress={handleDelete}
               >
@@ -143,36 +143,36 @@ export default function ScanResultScreen() {
               </TouchableOpacity>
             </View>
           ),
-        }} 
+        }}
       />
       <StatusBar style="dark" />
-      
+
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Image 
-          source={{ uri: scan.imageUri }} 
+        <Image
+          source={{ uri: scan.imageUri }}
           style={styles.image}
           resizeMode="cover"
         />
-        
+
         <View style={styles.content}>
           <View style={styles.dateContainer}>
             <Calendar size={16} color={colors.darkGray} />
             <Text style={styles.dateText}>{formatDate(scan.date)}</Text>
           </View>
-          
+
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Analysis Results</Text>
             <Text style={styles.sectionDescription}>
               Potential skin conditions identified in your image
             </Text>
-            
+
             <View style={styles.resultsContainer}>
               {resultsWithInfo.map((result, index) => (
                 <View key={index} style={styles.resultItem}>
                   <View style={styles.resultInfo}>
                     <Text style={styles.resultName}>{result.name}</Text>
                     <View style={styles.probabilityContainer}>
-                      <View 
+                      <View
                         style={[
                           styles.probabilityBar,
                           { width: `${result.probability * 100}%` }
@@ -187,12 +187,12 @@ export default function ScanResultScreen() {
               ))}
             </View>
           </View>
-          
+
           <View style={styles.section}>
             <View style={styles.notesHeader}>
               <Text style={styles.sectionTitle}>Notes</Text>
               {!isEditingNotes ? (
-                <TouchableOpacity 
+                <TouchableOpacity
                   style={styles.editButton}
                   onPress={() => setIsEditingNotes(true)}
                 >
@@ -201,7 +201,7 @@ export default function ScanResultScreen() {
                 </TouchableOpacity>
               ) : (
                 <View style={styles.notesActions}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.notesActionButton}
                     onPress={() => {
                       setNotes(scan.notes || '');
@@ -210,7 +210,7 @@ export default function ScanResultScreen() {
                   >
                     <X size={16} color={colors.error} />
                   </TouchableOpacity>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.notesActionButton}
                     onPress={saveNotes}
                   >
@@ -219,7 +219,7 @@ export default function ScanResultScreen() {
                 </View>
               )}
             </View>
-            
+
             {isEditingNotes ? (
               <Input
                 value={notes}
@@ -234,13 +234,13 @@ export default function ScanResultScreen() {
               </Text>
             )}
           </View>
-          
+
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Identified Conditions</Text>
             <Text style={styles.sectionDescription}>
               Tap on a condition to learn more
             </Text>
-            
+
             {resultsWithInfo.map((result, index) => (
               result.diseaseInfo && (
                 <DiseaseCard
@@ -251,10 +251,10 @@ export default function ScanResultScreen() {
               )
             ))}
           </View>
-          
+
           <Text style={styles.disclaimer}>
-            Note: This analysis is for informational purposes only and should not 
-            replace professional medical advice. Always consult a healthcare provider 
+            Note: This analysis is for informational purposes only and should not
+            replace professional medical advice. Always consult a healthcare provider
             for diagnosis and treatment.
           </Text>
         </View>

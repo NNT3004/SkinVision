@@ -1,9 +1,9 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
   Image,
   TouchableOpacity
 } from 'react-native';
@@ -12,66 +12,66 @@ import { useLocalSearchParams, Stack, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { colors } from '@/constants/colors';
 import { diseases } from '@/constants/diseases';
-import { 
-  AlertCircle, 
-  Stethoscope, 
+import {
+  AlertCircle,
+  Stethoscope,
   ArrowLeft,
   ChevronRight
 } from 'lucide-react-native';
 
 export default function DiseaseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  
+
   // Find the disease by ID
   const disease = diseases.find(d => d.id === id);
-  
+
   // If disease not found, show error
   if (!disease) {
     return (
       <SafeAreaView style={styles.container}>
-        <Stack.Screen options={{ title: 'Not Found' }} />
+        <Stack.Screen options={{ title: 'Không tìm thấy' }} />
         <View style={styles.errorContainer}>
           <AlertCircle size={40} color={colors.error} />
-          <Text style={styles.errorText}>Disease not found</Text>
-          <TouchableOpacity 
+          <Text style={styles.errorText}>Không tìm thấy bệnh</Text>
+          <TouchableOpacity
             style={styles.backButton}
             onPress={() => router.back()}
           >
             <ArrowLeft size={20} color="#FFFFFF" />
-            <Text style={styles.backButtonText}>Go Back</Text>
+            <Text style={styles.backButtonText}>Quay lại</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
   }
-  
+
   // Set the screen title to the disease name
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
       <Stack.Screen options={{ title: disease.name }} />
       <StatusBar style="dark" />
-      
+
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Image 
-          source={{ uri: disease.imageUrl }} 
+        <Image
+          source={{ uri: disease.imageUrl }}
           style={styles.image}
           resizeMode="cover"
         />
-        
+
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title}>{disease.name}</Text>
             <View style={styles.severityContainer}>
-              <Text style={styles.severityLabel}>Severity:</Text>
-              <View 
+              <Text style={styles.severityLabel}>Mức độ nghiêm trọng:</Text>
+              <View
                 style={[
                   styles.severityBadge,
-                  { 
-                    backgroundColor: disease.severity.includes('Severe') 
-                      ? colors.error 
-                      : disease.severity.includes('Moderate') 
-                        ? colors.warning 
-                        : colors.success 
+                  {
+                    backgroundColor: disease.severity.includes('Severe')
+                      ? colors.error
+                      : disease.severity.includes('Moderate')
+                        ? colors.warning
+                        : colors.success
                   }
                 ]}
               >
@@ -79,14 +79,15 @@ export default function DiseaseDetailScreen() {
               </View>
             </View>
           </View>
-          
+
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Description</Text>
+            <Text style={styles.sectionTitle}>Mô tả</Text>
             <Text style={styles.description}>{disease.description}</Text>
           </View>
-          
+
+
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Symptoms</Text>
+            <Text style={styles.sectionTitle}>Triệu chứng</Text>
             <View style={styles.listContainer}>
               {disease.symptoms.map((symptom, index) => (
                 <View key={index} style={styles.listItem}>
@@ -96,9 +97,9 @@ export default function DiseaseDetailScreen() {
               ))}
             </View>
           </View>
-          
+
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Treatments</Text>
+            <Text style={styles.sectionTitle}>Phương pháp điều trị</Text>
             <View style={styles.listContainer}>
               {disease.treatments.map((treatment, index) => (
                 <View key={index} style={styles.listItem}>
@@ -108,19 +109,18 @@ export default function DiseaseDetailScreen() {
               ))}
             </View>
           </View>
-          
+
           <TouchableOpacity style={styles.consultButton}>
             <Stethoscope size={20} color="#FFFFFF" />
             <Text style={styles.consultButtonText}>
-              Consult a Dermatologist
+              Tham khảo ý kiến bác sĩ da liễu
             </Text>
             <ChevronRight size={16} color="#FFFFFF" />
           </TouchableOpacity>
-          
+
           <Text style={styles.disclaimer}>
-            Note: This information is for educational purposes only and should not 
-            replace professional medical advice. Always consult a healthcare provider 
-            for diagnosis and treatment.
+            Lưu ý: Thông tin này chỉ mang tính chất tham khảo và không thay thế cho lời khuyên y tế chuyên môn.
+            Luôn tham khảo ý kiến của nhân viên y tế để được chẩn đoán và điều trị chính xác.
           </Text>
         </View>
       </ScrollView>

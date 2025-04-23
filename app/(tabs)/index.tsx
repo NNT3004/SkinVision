@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
   Image,
   Platform,
   Alert
@@ -25,15 +25,15 @@ export default function HomeScreen() {
   const { user } = useAuthStore();
   const { addScan } = useHistoryStore();
   const [isProcessing, setIsProcessing] = useState(false);
-  
+
   // Request camera permissions
   const requestCameraPermission = async () => {
     if (Platform.OS !== 'web') {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert(
-          'Permission Required',
-          'Camera access is needed to take photos for skin analysis.',
+          'Yêu cầu quyền truy cập',
+          'Ứng dụng cần quyền truy cập camera để chụp ảnh phục vụ phân tích da.',
           [{ text: 'OK' }]
         );
         return false;
@@ -42,12 +42,12 @@ export default function HomeScreen() {
     }
     return true;
   };
-  
+
   // Take a photo with the camera
   const takePhoto = async () => {
     const hasPermission = await requestCameraPermission();
     if (!hasPermission) return;
-    
+
     try {
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -55,16 +55,16 @@ export default function HomeScreen() {
         aspect: [4, 3],
         quality: 0.8,
       });
-      
+
       if (!result.canceled) {
         processImage(result.assets[0].uri);
       }
     } catch (error) {
-      console.error('Error taking photo:', error);
-      Alert.alert('Error', 'Failed to take photo. Please try again.');
+      console.error('Lỗi khi chụp ảnh:', error);
+      Alert.alert('Lỗi', 'Chụp ảnh không thành công. Vui lòng thử lại.');
     }
   };
-  
+
   // Pick an image from the gallery
   const pickImage = async () => {
     try {
@@ -74,37 +74,37 @@ export default function HomeScreen() {
         aspect: [4, 3],
         quality: 0.8,
       });
-      
+
       if (!result.canceled) {
         processImage(result.assets[0].uri);
       }
     } catch (error) {
-      console.error('Error picking image:', error);
-      Alert.alert('Error', 'Failed to select image. Please try again.');
+      console.error('Lỗi khi chọn ảnh:', error);
+      Alert.alert('Lỗi', 'Chọn ảnh không thành công. Vui lòng thử lại.');
     }
   };
-  
+
   // Process the selected image
   const processImage = async (imageUri: string) => {
     if (!user) return;
-    
+
     setIsProcessing(true);
-    
+
     try {
       // Simulate API call for disease recognition
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       // Mock results - in a real app, this would come from an API
       const randomDiseases = [...diseases]
         .sort(() => 0.5 - Math.random())
         .slice(0, 3);
-      
+
       const results = randomDiseases.map(disease => ({
         id: disease.id,
         name: disease.name,
         probability: Math.random() * 0.7 + 0.3, // Random probability between 0.3 and 1.0
       }));
-      
+
       // Add to history
       const scanId = Date.now().toString();
       addScan({
@@ -112,25 +112,25 @@ export default function HomeScreen() {
         imageUri,
         diseases: results,
       });
-      
+
       // Navigate to result screen
       router.push(`/scan-result/${scanId}`);
     } catch (error) {
-      console.error('Error processing image:', error);
-      Alert.alert('Error', 'Failed to analyze image. Please try again.');
+      console.error('Lỗi khi xử lý ảnh:', error);
+      Alert.alert('Lỗi', 'Phân tích ảnh không thành công. Vui lòng thử lại.');
     } finally {
       setIsProcessing(false);
     }
   };
-  
+
   // Get time of day for greeting
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 18) return 'Good afternoon';
-    return 'Good evening';
+    if (hour < 12) return 'Chào buổi sáng';
+    if (hour < 18) return 'Chào buổi chiều';
+    return 'Chào buổi tối';
   };
-  
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar style="dark" />
@@ -140,22 +140,22 @@ export default function HomeScreen() {
             <Text style={styles.greeting}>{getGreeting()},</Text>
             <Text style={styles.userName}>{user?.name || 'User'}</Text>
           </View>
-          <Image 
-            source={{ 
+          <Image
+            source={{
               uri: user?.profileImage || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
-            }} 
+            }}
             style={styles.profileImage}
           />
         </View>
-        
+
         <View style={styles.scanSection}>
-          <Text style={styles.sectionTitle}>Skin Analysis</Text>
+          <Text style={styles.sectionTitle}>Phân tích da</Text>
           <Text style={styles.sectionDescription}>
-            Take a photo or upload an image to analyze your skin condition
+            Chụp ảnh hoặc tải lên một bức ảnh để phân tích tình trạng da của bạn
           </Text>
-          
+
           <View style={styles.scanOptions}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.scanOption}
               onPress={takePhoto}
               disabled={isProcessing}
@@ -163,10 +163,10 @@ export default function HomeScreen() {
               <View style={styles.scanOptionIcon}>
                 <Camera size={28} color={colors.primary} />
               </View>
-              <Text style={styles.scanOptionText}>Take Photo</Text>
+              <Text style={styles.scanOptionText}>Chụp ảnh</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity 
+
+            <TouchableOpacity
               style={styles.scanOption}
               onPress={pickImage}
               disabled={isProcessing}
@@ -174,41 +174,42 @@ export default function HomeScreen() {
               <View style={styles.scanOptionIcon}>
                 <Upload size={28} color={colors.primary} />
               </View>
-              <Text style={styles.scanOptionText}>Upload Image</Text>
+              <Text style={styles.scanOptionText}>Tải ảnh lên</Text>
             </TouchableOpacity>
           </View>
-          
+
           {isProcessing && (
             <View style={styles.processingContainer}>
-              <Text style={styles.processingText}>Analyzing image...</Text>
+              <Text style={styles.processingText}>Đang phân tích ảnh...</Text>
             </View>
           )}
         </View>
-        
+
         <View style={styles.infoSection}>
           <View style={styles.infoHeader}>
             <Info size={20} color={colors.primary} />
-            <Text style={styles.infoTitle}>Did you know?</Text>
+            <Text style={styles.infoTitle}>Bạn có biết?</Text>
           </View>
           <Text style={styles.infoText}>
-            Regular skin checks can help detect skin conditions early, 
-            making them easier to treat. Remember to consult a dermatologist 
-            for professional diagnosis.
+            Kiểm tra da thường xuyên giúp phát hiện các vấn đề về da sớm,
+            làm cho việc điều trị trở nên dễ dàng hơn. Hãy nhớ tham khảo ý kiến bác sĩ da liễu
+            để có chẩn đoán chuyên môn.
           </Text>
         </View>
-        
+
+
         <View style={styles.commonSection}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Common Skin Conditions</Text>
-            <TouchableOpacity 
+          <Text style={styles.sectionTitle}>Các vấn đề da thường gặp</Text>
+            <TouchableOpacity
               style={styles.viewAllButton}
               onPress={() => router.push('/disease')}
             >
-              <Text style={styles.viewAllText}>View all</Text>
+              <Text style={styles.viewAllText}>Xem tất cả</Text>
               <ArrowRight size={16} color={colors.primary} />
             </TouchableOpacity>
           </View>
-          
+
           {diseases.slice(0, 3).map(disease => (
             <DiseaseCard
               key={disease.id}

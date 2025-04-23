@@ -1,8 +1,8 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
+import {
+  View,
+  Text,
+  StyleSheet,
   FlatList
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,23 +18,23 @@ import { History, Camera } from 'lucide-react-native';
 export default function HistoryScreen() {
   const { scans } = useHistoryStore();
   const { user } = useAuthStore();
-  
+
   // Filter scans for the current user
-  const userScans = user 
+  const userScans = user
     ? scans.filter((scan: { userId: any; }) => scan.userId === user.id)
     : [];
-  
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar style="dark" />
-      
+
       <View style={styles.header}>
-        <Text style={styles.title}>Scan History</Text>
+        <Text style={styles.title}>Lịch sử chẩn đoán</Text>
         <Text style={styles.subtitle}>
-          View your previous skin analysis results
+          Xem kết quả phân tích da trước đây
         </Text>
       </View>
-      
+
       <FlatList
         data={userScans}
         keyExtractor={item => item.id}
@@ -51,9 +51,9 @@ export default function HistoryScreen() {
         ListEmptyComponent={
           <EmptyState
             icon={<History size={40} color={colors.primary} />}
-            title="No scan history yet"
-            description="Your skin analysis results will appear here after you scan your skin."
-            buttonTitle="Scan Now"
+            title="Chưa có lịch sử quét"
+            description="Kết quả phân tích da của bạn sẽ hiển thị tại đây sau khi bạn quét da."
+            buttonTitle="Quét ngay"
             onButtonPress={() => router.push('/')}
           />
         }
