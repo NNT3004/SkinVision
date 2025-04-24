@@ -50,9 +50,9 @@ export const useAuthStore = create<AuthState>()(
           router.replace('/(tabs)');
         } catch (error: any) {
           set({
-            error: error.message || 'Failed to login',
+            error: error.message || 'Đăng nhập không thành công',
             isLoading: false,
-          });
+          });          
         }
       },
 
@@ -67,7 +67,7 @@ export const useAuthStore = create<AuthState>()(
           const existingUser = mockUsers.find(u => u.email === email);
           
           if (existingUser) {
-            throw new Error('User with this email already exists');
+            throw new Error('Email này đã được đăng ký, vui lòng sử dụng email khác');
           }
           
           // Create new user (in a real app, this would be an API call)
@@ -88,7 +88,7 @@ export const useAuthStore = create<AuthState>()(
           router.replace('/(tabs)');
         } catch (error: any) {
           set({
-            error: error.message || 'Failed to register',
+            error: error.message || 'Đăng Kí không thành công',
             isLoading: false,
           });
         }
@@ -112,7 +112,7 @@ export const useAuthStore = create<AuthState>()(
           const currentUser = get().user;
           
           if (!currentUser) {
-            throw new Error('User not found');
+            throw new Error('Không tìm thấy người dùng');
           }
           
           const updatedUser = {
@@ -126,7 +126,7 @@ export const useAuthStore = create<AuthState>()(
           });
         } catch (error: any) {
           set({
-            error: error.message || 'Failed to update profile',
+            error: error.message || 'Cập nhật hồ sơ không thành công',
             isLoading: false,
           });
         }

@@ -97,13 +97,13 @@ export default function ScanResultScreen() {
         <Stack.Screen options={{ title: 'Not Found' }} />
         <View style={styles.errorContainer}>
           <AlertCircle size={40} color={colors.error} />
-          <Text style={styles.errorText}>Scan result not found</Text>
+          <Text style={styles.errorText}>Không tìm thấy kết quả quét</Text>
           <TouchableOpacity
             style={styles.backButton}
             onPress={() => router.replace('/history')}
           >
             <ArrowLeft size={20} color="#FFFFFF" />
-            <Text style={styles.backButtonText}>Go to History</Text>
+            <Text style={styles.backButtonText}>Xem lịch sử</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -161,9 +161,9 @@ export default function ScanResultScreen() {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Analysis Results</Text>
+            <Text style={styles.sectionTitle}>Kết quả phân tích</Text>
             <Text style={styles.sectionDescription}>
-              Potential skin conditions identified in your image
+              Các tình trạng da có thể được phát hiện trong hình ảnh của bạn
             </Text>
 
             <View style={styles.resultsContainer}>
@@ -190,14 +190,14 @@ export default function ScanResultScreen() {
 
           <View style={styles.section}>
             <View style={styles.notesHeader}>
-              <Text style={styles.sectionTitle}>Notes</Text>
+              <Text style={styles.sectionTitle}>Ghi chú</Text>
               {!isEditingNotes ? (
                 <TouchableOpacity
                   style={styles.editButton}
                   onPress={() => setIsEditingNotes(true)}
                 >
                   <Edit3 size={16} color={colors.primary} />
-                  <Text style={styles.editButtonText}>Edit</Text>
+                  <Text style={styles.editButtonText}>Chỉnh sửa</Text>
                 </TouchableOpacity>
               ) : (
                 <View style={styles.notesActions}>
@@ -224,21 +224,21 @@ export default function ScanResultScreen() {
               <Input
                 value={notes}
                 onChangeText={setNotes}
-                placeholder="Add notes about this scan..."
+                placeholder="Thêm ghi chú về lượt quét này..."
                 multiline
                 numberOfLines={4}
               />
             ) : (
               <Text style={styles.notesText}>
-                {scan.notes || 'No notes added yet.'}
+                {scan.notes || 'Chưa có ghi chú nào.'}
               </Text>
             )}
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Identified Conditions</Text>
+            <Text style={styles.sectionTitle}>Tình trạng đã nhận diện</Text>
             <Text style={styles.sectionDescription}>
-              Tap on a condition to learn more
+              Nhấn vào một tình trạng để tìm hiểu thêm
             </Text>
 
             {resultsWithInfo.map((result, index) => (
@@ -253,9 +253,8 @@ export default function ScanResultScreen() {
           </View>
 
           <Text style={styles.disclaimer}>
-            Note: This analysis is for informational purposes only and should not
-            replace professional medical advice. Always consult a healthcare provider
-            for diagnosis and treatment.
+            Lưu ý: Phân tích này chỉ mang tính chất tham khảo và không thay thế cho lời khuyên y tế chuyên môn.
+            Hãy luôn tham khảo ý kiến của nhân viên y tế để được chẩn đoán và điều trị chính xác.
           </Text>
         </View>
       </ScrollView>
