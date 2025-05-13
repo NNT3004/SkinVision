@@ -43,7 +43,7 @@ export default function ScanResultScreen() {
     if (!dateString) return '';
 
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('vi-VN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -175,7 +175,7 @@ export default function ScanResultScreen() {
                       <View
                         style={[
                           styles.probabilityBar,
-                          { width: `${result.probability * 100}%` }
+                          { width: `${result.probability * 100}%` },
                         ]}
                       />
                     </View>
@@ -204,8 +204,8 @@ export default function ScanResultScreen() {
                   <TouchableOpacity
                     style={styles.notesActionButton}
                     onPress={() => {
-                      setNotes(scan.notes || '');
-                      setIsEditingNotes(false);
+                      setNotes(''); // Đặt lại ghi chú về chuỗi rỗng
+                      setIsEditingNotes(false); // Thoát khỏi chế độ chỉnh sửa
                     }}
                   >
                     <X size={16} color={colors.error} />
@@ -267,151 +267,127 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  scrollContent: {
-    flexGrow: 1,
-  },
-  headerButtons: {
-    flexDirection: 'row',
-    gap: 16,
-    marginRight: 8,
-  },
-  headerButton: {
-    padding: 4,
-  },
   errorContainer: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
+    alignItems: 'center',
+    padding: 16,
   },
   errorText: {
-    fontSize: 18,
-    color: colors.text,
-    marginTop: 16,
-    marginBottom: 24,
+    color: colors.error,
+    fontSize: 16,
+    marginTop: 8,
+    textAlign: 'center',
   },
   backButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 16,
     backgroundColor: colors.primary,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    padding: 12,
     borderRadius: 8,
-    gap: 8,
   },
   backButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '500',
+    marginLeft: 8,
+  },
+  headerButtons: {
+    flexDirection: 'row',
+  },
+  headerButton: {
+    marginHorizontal: 8,
+  },
+  scrollContent: {
+    padding: 16,
   },
   image: {
     width: '100%',
-    height: 250,
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 16,
   },
   content: {
-    padding: 16,
+    flex: 1,
   },
   dateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 20,
+    marginBottom: 8,
   },
   dateText: {
-    fontSize: 14,
+    marginLeft: 8,
     color: colors.darkGray,
   },
   section: {
-    marginBottom: 24,
-    backgroundColor: colors.card,
-    borderRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
+    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: colors.text,
+    fontWeight: 'bold',
     marginBottom: 8,
   },
   sectionDescription: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    marginBottom: 16,
+    color: colors.darkGray,
+    marginBottom: 8,
   },
   resultsContainer: {
-    gap: 12,
+    marginTop: 8,
   },
   resultItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    marginBottom: 8,
   },
   resultInfo: {
     flex: 1,
-    marginRight: 12,
   },
   resultName: {
     fontSize: 16,
-    fontWeight: '500',
-    color: colors.text,
-    marginBottom: 4,
+    fontWeight: 'bold',
   },
   probabilityContainer: {
     height: 8,
     backgroundColor: colors.lightGray,
     borderRadius: 4,
     overflow: 'hidden',
+    marginTop: 4,
   },
   probabilityBar: {
     height: '100%',
-    backgroundColor: colors.primary,
-    borderRadius: 4,
+    backgroundColor: colors.success,
   },
   probabilityText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.primary,
-    minWidth: 50,
-    textAlign: 'right',
+    marginLeft: 8,
+    fontSize: 14,
+    color: colors.darkGray,
   },
   notesHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
   },
   editButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
   },
   editButtonText: {
-    fontSize: 14,
+    marginLeft: 4,
     color: colors.primary,
   },
   notesActions: {
     flexDirection: 'row',
-    gap: 12,
   },
   notesActionButton: {
-    padding: 4,
+    marginHorizontal: 4,
   },
   notesText: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    lineHeight: 24,
-    fontStyle: scan => scan.notes ? 'normal' : 'italic',
+    marginTop: 8,
+    color: colors.darkGray,
   },
   disclaimer: {
+    marginTop: 16,
     fontSize: 12,
     color: colors.darkGray,
-    fontStyle: 'italic',
     textAlign: 'center',
-    marginBottom: 24,
   },
 });

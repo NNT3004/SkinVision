@@ -13,7 +13,7 @@ export const ScanHistoryCard: React.FC<ScanHistoryCardProps> = ({ scan, onPress 
   // Format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('vi-VN', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',

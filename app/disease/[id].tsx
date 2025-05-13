@@ -110,13 +110,13 @@ export default function DiseaseDetailScreen() {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.consultButton}>
+          {/* <TouchableOpacity style={styles.consultButton}>
             <Stethoscope size={20} color="#FFFFFF" />
             <Text style={styles.consultButtonText}>
               Tham khảo ý kiến bác sĩ da liễu
             </Text>
             <ChevronRight size={16} color="#FFFFFF" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <Text style={styles.disclaimer}>
             Lưu ý: Thông tin này chỉ mang tính chất tham khảo và không thay thế cho lời khuyên y tế chuyên môn.

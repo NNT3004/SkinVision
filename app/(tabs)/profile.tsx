@@ -159,7 +159,7 @@ export default function ProfileScreen() {
           >
             <Image
               source={{
-                uri: user?.profileImage || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
+                uri: user?.profileImage || 'https://cdn.glitch.global/3750b666-2717-49cf-bd90-bd363a72c9f6/thinh.png?v=1745469620731'
               }}
               style={styles.profileImage}
             />
@@ -199,7 +199,7 @@ export default function ProfileScreen() {
               <View style={styles.statItem}>
                 <Text style={styles.statValue}>
                   {userScans.length > 0 ?
-                    new Date(userScans[0].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) :
+                    new Date(userScans[0].date).toLocaleDateString('vi-VN', { year: 'numeric', month: 'short', day: 'numeric' }) :
                     '-'
                   }
                 </Text>
