@@ -15,11 +15,11 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
   onPress,
   compact = false
 }) => {
-  const getSeverityColor = (severity: string) => {
-    if (severity.includes('Severe')) return colors.error;
-    if (severity.includes('Moderate')) return colors.warning;
-    return colors.success;
-  };
+  // const getSeverityColor = (severity: string) => {
+  //   if (severity.includes('Severe')) return colors.error;
+  //   if (severity.includes('Moderate')) return colors.warning;
+  //   return colors.success;
+  // };
 
   return (
     <TouchableOpacity 
@@ -36,14 +36,14 @@ export const DiseaseCard: React.FC<DiseaseCardProps> = ({
       <View style={[styles.content, compact && styles.compactContent]}>
         <View style={styles.header}>
           <Text style={styles.name}>{disease.name}</Text>
-          <View 
+          {/* <View 
             style={[
               styles.severityBadge, 
               { backgroundColor: getSeverityColor(disease.severity) }
             ]}
           >
             <Text style={styles.severityText}>{disease.severity}</Text>
-          </View>
+          </View> */}
         </View>
         
         {!compact && (

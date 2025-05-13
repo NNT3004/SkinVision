@@ -61,7 +61,7 @@ export default function DiseaseDetailScreen() {
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title}>{disease.name}</Text>
-            <View style={styles.severityContainer}>
+            {/* <View style={styles.severityContainer}>
               <Text style={styles.severityLabel}>Mức độ nghiêm trọng:</Text>
               <View
                 style={[
@@ -77,7 +77,7 @@ export default function DiseaseDetailScreen() {
               >
                 <Text style={styles.severityText}>{disease.severity}</Text>
               </View>
-            </View>
+            </View> */}
           </View>
 
           <View style={styles.section}>
