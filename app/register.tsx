@@ -214,22 +214,22 @@ export default function RegisterScreen() {
             <View style={styles.socialButtons}>
               <TouchableOpacity style={styles.socialButton}>
                 <Image 
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png' }} 
+                  source={{ uri: 'https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png' }} 
+                  style={styles.socialIcon}
+                />
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={styles.socialButton}>
+                <Image 
+                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png' }} 
                   style={styles.socialIcon}
                 />
               </TouchableOpacity>
               <TouchableOpacity style={styles.socialButton}>
                 <Image 
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' }} 
+                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' }} 
                   style={styles.socialIcon}
                 />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <Image 
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png' }} 
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             
             <View style={styles.loginContainer}>

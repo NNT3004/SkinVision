@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, Button } from 'react-native';
 
 interface Props {
   children: React.ReactNode;
@@ -88,6 +88,10 @@ export class ErrorBoundary extends React.Component<Props, State> {
     }
   }
 
+  handleRetry = () => {
+    this.setState({ hasError: false, error: null });
+  };
+
   render() {
     if (this.state.hasError) {
       return (
@@ -100,6 +104,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
                 Please check your device logs for more details.
               </Text>
             )}
+            <Button title="Retry" onPress={this.handleRetry} color="#2e78b7" />
           </View>
         </View>
       );
@@ -137,6 +142,18 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
     marginTop: 8,
+  },
+  button: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#2e78b7',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 }); 
 

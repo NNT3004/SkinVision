@@ -246,7 +246,7 @@ export default function ScanResultScreen() {
                 <DiseaseCard
                   key={index}
                   disease={result.diseaseInfo}
-                  onPress={() => router.push(`/disease/${result.diseaseInfo.id}`)}
+                  onPress={() => result.diseaseInfo && router.push(`/disease/${result.diseaseInfo.id}`)}
                 />
               )
             ))}

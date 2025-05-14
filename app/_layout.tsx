@@ -3,7 +3,7 @@ import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { Platform } from "react-native";
+import { Platform, View, ActivityIndicator, Alert } from "react-native";
 import { ErrorBoundary } from "./error-boundary";
 import { useAuthStore } from "@/store/auth-store";
 
@@ -24,8 +24,8 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (error) {
-      console.error(error);
-      throw error;
+      console.error("Font loading error:", error);
+      Alert.alert("Error", "Failed to load fonts. Please restart the app.");
     }
   }, [error]);
 
@@ -43,7 +43,11 @@ export default function RootLayout() {
   }, [isReady, isAuthenticated]);
 
   if (!isReady || !loaded) {
-    return null;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
 
   return (
